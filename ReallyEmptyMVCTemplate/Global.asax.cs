@@ -26,9 +26,14 @@ namespace $safeprojectname$
 
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+        }
+        
+        protected void Application_PreSendRequestHeaders() {
+            HttpContext.Current.Response.Headers.Remove("Server");
         }
     }
 }
