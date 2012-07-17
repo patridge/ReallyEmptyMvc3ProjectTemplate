@@ -33,7 +33,9 @@ namespace $safeprojectname$
         }
         
         protected void Application_PreSendRequestHeaders() {
-            HttpContext.Current.Response.Headers.Remove("Server");
+            if (HttpRuntime.UsingIntegratedPipeline) {
+                HttpContext.Current.Response.Headers.Remove("Server");
+            }
         }
     }
 }
